@@ -106,7 +106,11 @@ class CryptUtil(object):
     def crt_to_ssh(self, input_file, output_file):
         with open(output_file, "ab") as file_out:
             cmd = ["ssh-keygen", "-i", "-m", "PKCS8", "-f", input_file]
-            shellutil.run_command(cmd, stdout=file_out, log_error=True)
+
+            try:
+                shellutil.run_command(cmd, stdout=file_out, log_error=True)
+            except shellutil.CommandError:
+                pass  # nothing to do; the error is already logged
 
     def asn1_to_ssh(self, pubkey):
         lines = pubkey.split("\n")

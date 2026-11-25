@@ -33,8 +33,6 @@ import azurelinuxagent.common.utils.shellutil as shellutil
 
 class GaiaOSUtil(DefaultOSUtil):
 
-    _replace_certificate_key = True
-
     def __init__(self):  # pylint: disable=W0235
         super(GaiaOSUtil, self).__init__()
 

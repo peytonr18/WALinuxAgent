@@ -457,7 +457,7 @@ class TestProvision(AgentTestCase):
         ovfenv = OvfEnv(load_data("ovf-env_public_key_no_value.xml").replace("$HOME/UserName", self.tmp_dir))
         with TestProvision._create_provision_handler_with_mock_protocol() as (handler, _):
             handler.osutil = DefaultOSUtil()
-            with patch.object(handler.osutil, "get_userentry", return_value=account):
+            with patch("pwd.getpwnam", return_value=account):
                 with self.assertRaises(OSUtilError) as context:
                     handler.deploy_ssh_pubkeys(ovfenv)
             self.assertIn("Can't find 8979F1AC8C4215827BF3B5A403E6137B504D02A4.crt", ustr(context.exception))
